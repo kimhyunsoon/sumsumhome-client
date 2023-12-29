@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.icon-fab {
+  display: flex;
+  align-items: cetner;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 100px;
+  background-color: #00000004;
+  &:active {
+    transform: rotate(90deg);
+  }
+}
