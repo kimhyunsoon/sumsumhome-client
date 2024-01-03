@@ -7,11 +7,13 @@ interface PageInterface {
 }
 
 class CommStore {
-  public darkMode: Writable<boolean>;
+  public connected: Writable<boolean>;
+  public darkMode: Writable<number>;
   public pages: Readable<Record<string, PageInterface>>
   
   constructor() {
-    this.darkMode = writable(false);
+    this.connected = writable(false);
+    this.darkMode = writable(0);
     this.pages = readable({
       '/': {
         title: '홈',
@@ -35,23 +37,31 @@ class CommStore {
 
   public checkDarkMode(): void {
     if (browser) {
-      let value: boolean = true;
+      let value: number = 0;
       const storageValue = window.localStorage.getItem('darkMode');
       if (storageValue == null) window.localStorage.setItem('darkMode', String(value));
-      else value = Boolean(storageValue);
+      else value = Number(storageValue);
       this.darkMode.set(value)
-      if (value) document.documentElement.classList.add('dark');
+      if (value === 1) document.documentElement.classList.add('dark');
       else document.documentElement.classList.remove('dark');
     }
   }
 
+
   public toggleDarkMode(): void {
     if (browser) {
-      const value: boolean = get(this.darkMode);
-      window.localStorage.setItem('darkMode', String(!value));
-      this.darkMode.set(!get(this.darkMode));
-      if (!value) document.documentElement.classList.add('dark');
+      const value: number = get(this.darkMode);
+      window.localStorage.setItem('darkMode', String(value === 0 ? 1 : 0));
+      this.darkMode.set(value === 0 ? 1 : 0);
+      if (value === 0) document.documentElement.classList.add('dark');
       else document.documentElement.classList.remove('dark');
+    }
+  }
+
+  public routeChecker(page: Record<string, any>) {
+    if (browser) {
+      console.log(page);
+
     }
   }
 }

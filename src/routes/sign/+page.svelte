@@ -19,11 +19,11 @@
 </script>
 
 <style lang="scss">
-.button-wrap {
-  width: 100vw;
-  position: fixed;
-  bottom: 0px;
-}
+  .button-wrap {
+    width: 100vw;
+    position: fixed;
+    bottom: 0px;
+  }
 </style>
 
 <Page>
@@ -51,7 +51,7 @@
     <Button
       large
       disabled={!validation}
-      onClick={async () => { await UserStore.authorization() }}
+      onClick={async () => { await UserStore.signin(id, pw) }}
     >
       로그인
     </Button>

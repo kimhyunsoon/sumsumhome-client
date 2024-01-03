@@ -1,5 +1,7 @@
 import { io, Socket } from 'socket.io-client';
 import config from '../config/config';
+import DialogStore from '$lib/stores/dialog';
+import UserStore from '$lib/stores/user';
 
 class SocketClient {
   private socket: Socket;
@@ -12,15 +14,16 @@ class SocketClient {
   }
 
   private setupSocketListeners(): void {
-    this.socket.on('connect', () => {
-      console.log('Connected to Socket Server');
+    this.socket.on('connect', async () => {
+      console.info('Connected to Socket Server');
+      // await UserStore.authorization();
     });
 
     this.socket.on('disconnect', () => {
       console.log('Disconnected from Socket Server');
+      // DialogStore.alert('서버/통신 오류가 발생했습니다.', 'error', false);
     });
 
-    // Add more event listeners as needed
   }
 
   public async emitter(command: string, parameter: Record<string, any>): Promise<any> {
@@ -31,8 +34,6 @@ class SocketClient {
       });
     });
   }
-
-  // Add more methods as needed
 }
 
 export default new SocketClient();
