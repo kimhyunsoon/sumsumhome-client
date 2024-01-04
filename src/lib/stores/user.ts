@@ -57,10 +57,12 @@ class UserStore {
   }
 
   public async signout(): Promise<void> {
+    console.log('asdf');
     DialogStore.progress.set(true);
     try {
       await socket.emitter('users.signout', {});
       window.localStorage.removeItem('userToken');
+      DialogStore.alert('로그아웃 되었습니다.', 'success');
       await this.authorization();
     } catch (error) {
       console.error(error);

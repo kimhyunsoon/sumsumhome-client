@@ -40,6 +40,7 @@ class DialogStore {
   }
 
   public alert(message: string, type: string = 'info', autoClose: boolean = true): void {
+    if (get(this.toast).show === true) this.alertClose();
     this.toast.set({
       show: true,
       message,

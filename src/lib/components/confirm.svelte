@@ -13,7 +13,7 @@
     { $confirmStore.context }
   <svelte:fragment slot="buttons">
     <DialogButton onClick={() => { DialogStore.confirmClose() }}>취소</DialogButton>
-    <DialogButton strong onClick={() => { DialogStore.confirmClose() }}>
+    <DialogButton strong onClick={async () => { await $confirmStore.callback() }}>
       { $confirmStore.btnText }
     </DialogButton>
   </svelte:fragment>

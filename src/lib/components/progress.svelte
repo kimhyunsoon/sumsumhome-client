@@ -6,12 +6,15 @@
 <style lang="scss">
   .progress-wrap {
     width: 100vw;
-    heigt: 100vh;
-    background-color: rgba(255,255,255,0.3);
+    height: 100vh;
+    background-color: rgba(255,255,255,0.1);
     display: flex;
-    align-items: cetner;
-    justify-content: cetner;
-    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 40;
     &.hidden {
       display: none !important;
     }

@@ -7,6 +7,7 @@
   import { page } from '$app/stores';
   import CommStore from '$lib/stores/comm';
   import UserStore from '$lib/stores/user';
+  import DialogStore from '$lib/stores/dialog';
   const { darkMode, pages } = CommStore;
   const { userInfo } = UserStore;
 </script>
@@ -27,7 +28,15 @@
     {#if $userInfo !== null}
     <button
       class="icon-fab transition-all"
-      on:click="{ async () => { await UserStore.signout() }}"
+      on:click="{() => {
+        DialogStore.confirm({
+          title: '로그아웃',
+          context: '정말 로그아웃할까요?',
+        }, async () => {
+          await UserStore.signout();
+          DialogStore.confirmClose();
+        });
+      }}"
       type="button"
     >
       <Icon

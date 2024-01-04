@@ -1,5 +1,7 @@
 import { writable, type Writable, readable, type Readable, get } from "svelte/store";
 import { browser } from '$app/environment';
+import DialogStore from '$lib/stores/dialog';
+import { goto } from "$app/navigation";
 
 interface PageInterface {
   title: string
@@ -58,10 +60,17 @@ class CommStore {
     }
   }
 
-  public routeChecker(page: Record<string, any>) {
+  public routeChecker(page: Record<string, any>, userInfo: Record<string, string>) {
     if (browser) {
-      console.log(page);
-
+      const currentPage = get(this.pages)[page.route.id];
+      if (currentPage == null) {
+        DialogStore.alert('유효하지 않은 경로입니다.', 'error');
+        goto('/');
+      } else if (currentPage.needAuth && userInfo == null) {
+        goto('/sign');
+      } else if (!currentPage.needAuth && userInfo != null) {
+        goto('/');
+      }
     }
   }
 }

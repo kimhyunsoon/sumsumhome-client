@@ -16,12 +16,19 @@ class SocketClient {
   private setupSocketListeners(): void {
     this.socket.on('connect', async () => {
       console.info('Connected to Socket Server');
-      // await UserStore.authorization();
+      await UserStore.authorization();
     });
 
     this.socket.on('disconnect', () => {
       console.log('Disconnected from Socket Server');
-      // DialogStore.alert('서버/통신 오류가 발생했습니다.', 'error', false);
+      DialogStore.progress.set(true);
+      DialogStore.alert('서버/통신 오류가 발생했습니다.', 'error', false);
+    });
+
+    this.socket.once('connect_error', () => {
+      console.log('Disconnected from Socket Server');
+      DialogStore.progress.set(true);
+      DialogStore.alert('서버/통신 오류가 발생했습니다.', 'error', false);
     });
 
   }
