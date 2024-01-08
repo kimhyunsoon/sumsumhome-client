@@ -1,5 +1,6 @@
-import { writable, type Writable, readable, type Readable, get } from "svelte/store";
+import { writable, type Writable, get } from 'svelte/store';
 
+let timeoutId: number | null = null;
 interface ToastInterface {
   show: boolean
   message: string
@@ -40,21 +41,24 @@ class DialogStore {
   }
 
   public alert(message: string, type: string = 'info', autoClose: boolean = true): void {
-    if (get(this.toast).show === true) this.alertClose();
+    if (timeoutId !== null) clearTimeout(timeoutId);
+
+    if (autoClose) {
+      timeoutId = setTimeout(() => {
+        this.alertClose();
+      }, 3000);
+    }
+
     this.toast.set({
       show: true,
       message,
       type,
       autoClose,
     } as ToastInterface);
-    if (autoClose) {
-      setTimeout(() => {
-        this.alertClose();
-      }, 3000);
-    }
   }
 
   public alertClose(): void {
+    if (timeoutId !== null) clearTimeout(timeoutId);
     const before = get(this.toast);
     this.toast.set({
       ...before,

@@ -1,8 +1,7 @@
-import { writable, type Writable, readable, type Readable, get } from "svelte/store";
-import socket from "$lib/socket";
+import { writable, type Writable } from 'svelte/store';
+import socket from '$lib/socket';
 import { browser } from '$app/environment';
-import DialogStore from "$lib/stores/dialog";
-
+import DialogStore from '$lib/stores/dialog';
 
 interface UserInfoInterface {
   id: string
@@ -57,7 +56,6 @@ class UserStore {
   }
 
   public async signout(): Promise<void> {
-    console.log('asdf');
     DialogStore.progress.set(true);
     try {
       await socket.emitter('users.signout', {});

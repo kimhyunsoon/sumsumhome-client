@@ -1,7 +1,7 @@
-import { writable, type Writable, readable, type Readable, get } from "svelte/store";
+import { writable, type Writable, readable, type Readable, get } from 'svelte/store';
 import { browser } from '$app/environment';
 import DialogStore from '$lib/stores/dialog';
-import { goto } from "$app/navigation";
+import { to } from '$lib/utils/route';
 
 interface PageInterface {
   title: string
@@ -18,19 +18,19 @@ class CommStore {
     this.darkMode = writable(0);
     this.pages = readable({
       '/': {
-        title: '홈',
+        title: '🏠',
         needAuth: true,
       },
       '/sign': {
-        title: '로그인',
+        title: '🔐',
         needAuth: false,
       },
       '/cook': {
-        title: '요리',
+        title: '🥘',
         needAuth: true,
       },
-      'light': {
-        title: '조명',
+      '/light': {
+        title: '💡',
         needAuth: true,
       },
     });
@@ -65,11 +65,11 @@ class CommStore {
       const currentPage = get(this.pages)[page.route.id];
       if (currentPage == null) {
         DialogStore.alert('유효하지 않은 경로입니다.', 'error');
-        goto('/');
+        to('/');
       } else if (currentPage.needAuth && userInfo == null) {
-        goto('/sign');
+        to('/sign');
       } else if (!currentPage.needAuth && userInfo != null) {
-        goto('/');
+        to('/');
       }
     }
   }

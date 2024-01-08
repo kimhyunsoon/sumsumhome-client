@@ -1,5 +1,5 @@
 import { io, Socket } from 'socket.io-client';
-import config from '../config/config';
+import config from '../../config/config';
 import DialogStore from '$lib/stores/dialog';
 import UserStore from '$lib/stores/user';
 

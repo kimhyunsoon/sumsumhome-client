@@ -27,7 +27,7 @@
   <div slot="right" class="flex">
     {#if $userInfo !== null}
     <button
-      class="icon-fab transition-all"
+      class="icon-fab transition-all mr-1"
       on:click="{() => {
         DialogStore.confirm({
           title: '로그아웃',

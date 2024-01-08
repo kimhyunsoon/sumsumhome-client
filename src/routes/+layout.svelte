@@ -12,11 +12,20 @@
 
   const { pages } = CommStore;
   const { userInfo } = UserStore;
+  const { darkMode } = CommStore;
+  const currentPage = $pages[$page.route.id];
 
   $: CommStore.routeChecker($page, $userInfo);
-
 </script>
 <style lang="scss">
+  .page-block {
+    z-index: 30;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
 </style>
 <App theme="ios" safeAreas>
   <slot/>
