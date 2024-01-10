@@ -1,29 +1,48 @@
 <script lang="ts">
-  import { Toast, Button } from 'konsta/svelte';
+  import {
+    Link,
+    Card,
+    BlockTitle,
+    Chip,
+  } from 'konsta/svelte';
+
   import Icon from '@iconify/svelte';
-  import DialogStore from '$lib/stores/dialog';
-  const { toast } = DialogStore;
-  const iconMap = {
-    error: 'mingcute:alert-line',
-    success: 'mingcute:check-fill',
-    info: 'mingcute:information-line',
-  }
+  export let test: string;
 </script>
 <style lang="scss">
 </style>
-<Toast position="right" opened={$toast.show}>
-  <div class="shrink flex items-center">
-    <Icon icon="{ iconMap[$toast.type] }" class="mr-2" width="20" color="white"/>
-    { $toast.message }
+<Card>
+  <!-- <div
+    slot="header"
+    class="ios:-mx-4 ios:-mt-4 h-48 p-4 flex items-end text-white ios:font-bold bg-cover bg-center"
+    style="background-image: url(https://recipe1.ezmember.co.kr/cache/recipe/2021/12/08/70cd8583f83e05b529baaf65614669a61.jpg)"
+  >
+  </div> -->
+  <span>{test}</span>
+  <p class="text-midium mb-2 text-gray-500">1월 둘째주 목요일</p>
+  <BlockTitle withBlock={false} class="!pl-0 !mt-0 text-xl mb-3">토마토 스튜</BlockTitle>
+  <div>
+    <Chip outline class="m-0.5 ml-0">
+      소고기 <span class="text-2xs ml-1">500g</span>
+    </Chip>
+    <Chip outline class="m-0.5 ml-0">
+      홀토마토<span class="text-2xs ml-1">1캔</span>
+    </Chip>
+    <Chip outline class="m-0.5 ml-0">
+      소고기 <span class="text-2xs ml-1">500g</span>
+    </Chip>
+    <Chip outline class="m-0.5 ml-0">
+      홀토마토<span class="text-2xs ml-1">1캔</span>
+    </Chip>
+    <Chip outline class="m-0.5 ml-0">
+      소고기 <span class="text-2xs ml-1">500g</span>
+    </Chip>
+    <Chip outline class="m-0.5 ml-0">
+      홀토마토<span class="text-2xs ml-1">1캔</span>
+    </Chip>
   </div>
-  {#if !$toast.autoClose}
-    <Button
-      slot="button"
-      clear
-      inline
-      onClick={() => { DialogStore.alertClose() }}
-    >
-      닫기
-    </Button>
-  {/if}
-</Toast>
+  <div class="flex justify-between mt-5">
+    <Link></Link>
+    <Link>상세보기</Link>
+  </div>
+</Card>

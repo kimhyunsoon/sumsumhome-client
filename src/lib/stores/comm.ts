@@ -1,6 +1,7 @@
 import { writable, type Writable, readable, type Readable, get } from 'svelte/store';
 import { browser } from '$app/environment';
-import DialogStore from '$lib/stores/dialog';
+import { DialogStore } from '$lib/stores/dialog';
+import { type UserInfoInterface } from '$lib/stores/user';
 import { to } from '$lib/utils/route';
 
 interface PageInterface {
@@ -8,7 +9,7 @@ interface PageInterface {
   needAuth: boolean
 }
 
-class CommStore {
+class CommStoreClass {
   public connected: Writable<boolean>;
   public darkMode: Writable<number>;
   public pages: Readable<Record<string, PageInterface>>
@@ -60,7 +61,7 @@ class CommStore {
     }
   }
 
-  public routeChecker(page: Record<string, any>, userInfo: Record<string, string>) {
+  public routeChecker(page: Record<string, any>, userInfo: Writable<UserInfoInterface | null>) {
     if (browser) {
       const currentPage = get(this.pages)[page.route.id];
       if (currentPage == null) {
@@ -75,4 +76,8 @@ class CommStore {
   }
 }
 
-export default new CommStore();
+const CommStore = new CommStoreClass();
+
+export {
+  CommStore,
+};

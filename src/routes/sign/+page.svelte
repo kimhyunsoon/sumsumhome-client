@@ -8,7 +8,7 @@
   } from 'konsta/svelte';
   import Icon from '@iconify/svelte';
   import Header from '$lib/components/header.svelte';
-  import UserStore from '$lib/stores/user';
+  import { UserStore } from '$lib/stores/user';
 
   let id: string = '';
   let pw: string = '';

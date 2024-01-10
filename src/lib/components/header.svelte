@@ -5,9 +5,9 @@
   } from 'konsta/svelte';
   import Icon from '@iconify/svelte';
   import { page } from '$app/stores';
-  import CommStore from '$lib/stores/comm';
-  import UserStore from '$lib/stores/user';
-  import DialogStore from '$lib/stores/dialog';
+  import { CommStore } from '$lib/stores/comm';
+  import { UserStore } from '$lib/stores/user';
+  import { DialogStore } from '$lib/stores/dialog';
   const { darkMode, pages } = CommStore;
   const { userInfo } = UserStore;
 </script>

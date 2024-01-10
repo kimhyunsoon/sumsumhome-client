@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Preloader } from 'konsta/svelte';
-  import DialogStore from '$lib/stores/dialog';
+  import { DialogStore } from '$lib/stores/dialog';
   const { progress } = DialogStore;
 </script>
 <style lang="scss">

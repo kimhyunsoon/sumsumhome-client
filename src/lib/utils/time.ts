@@ -89,23 +89,24 @@ function getLightInfoToAfterString(lightInfo: Record<string, any>): string {
     }, []);
   const durationMin = dayjs.utc().diff(dayjs(lightStatusRecentDate), 'minute'); // 현재 켜져있는 분 수  
   let remainMin: number = 0; // 상태가 변경예정인 시각까지의 분 수 (반환할 수치)
-  let resultString: string = ''; // 수치를 제외하고 반환할 값 (문구)
-  
+  // let resultString: string = ''; // 수치를 제외하고 반환할 값 (문구)
+  let auto: boolean = false; // 자동 여부
+
   if (lightReserveTimes.length <= 0) { // 예약이 없을 경우
     if (!lightStatus) return '켜짐 예약이 없어요.' // 켜짐예약이 없을 경우 바로 반환
     else { // 꺼짐예약이 없을 경우 lightOnMaxDuration에 따라 반환
       remainMin = lightOnMaxDuration - durationMin
-      resultString = '뒤 자동으로 꺼질 예정이에요.';
+      auto = true;
     };
   } else {
     remainMin = getClosetReserveRemainMin(lightReserveTimes); // 예약시간 배열에서 가까운 예약시간까지 남은 분 수 도출
-    resultString = lightStatus
-      ? (remainMin > lightOnMaxDuration - durationMin) ? '뒤 자동으로 꺼질 예정이에요.' : '뒤 꺼질 예정이에요.'
-      : '뒤 켜질 예정이에요.';
-    if (lightStatus) remainMin = remainMin > lightOnMaxDuration - durationMin ? lightOnMaxDuration - durationMin : remainMin;
+    if (lightStatus && (remainMin > lightOnMaxDuration - durationMin)) {
+      remainMin = lightOnMaxDuration - durationMin;
+      auto = true;
+    }
   }
-  if (remainMin <= 0) return '';
-  return `${diffTimeToString(secondsToTime(remainMin * 60))}${resultString}`;
+
+  return `${remainMin <= 0 ? '잠시 ' : diffTimeToString(secondsToTime(remainMin * 60))} 후 ${auto ? '자동으로' : ''} ${lightStatus ? '꺼질 예정이에요.' : '켜질 예정이에요.'}`
 }
 
 export {
@@ -115,4 +116,6 @@ export {
   getLightInfoToAfterString,
   makeLocalStatusTimes,
   makeUtcHour,
+  diffTimeToString,
+  secondsToTime,
 };

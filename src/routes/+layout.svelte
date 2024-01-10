@@ -3,8 +3,8 @@
   import { onMount } from 'svelte';
   import { beforeNavigate } from '$app/navigation';
   import { page } from '$app/stores';
-  import CommStore from '$lib/stores/comm';
-  import UserStore from '$lib/stores/user';
+  import { CommStore } from '$lib/stores/comm';
+  import { UserStore } from '$lib/stores/user';
   import { App } from 'konsta/svelte';
   import Toast from '$lib/components/toast.svelte';
   import Progress from '$lib/components/progress.svelte';

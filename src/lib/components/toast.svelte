@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Toast, Button } from 'konsta/svelte';
   import Icon from '@iconify/svelte';
-  import DialogStore from '$lib/stores/dialog';
+  import { DialogStore } from '$lib/stores/dialog';
   const { toast } = DialogStore;
   const iconMap = {
     error: 'mingcute:alert-line',

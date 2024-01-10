@@ -1,6 +1,6 @@
 import socket from '$lib/socket';
-import DialogStore from '$lib/stores/dialog';
-import LightStore from '$lib/stores/light';
+import { DialogStore } from '$lib/stores/dialog';
+import { LightStore } from '$lib/stores/light';
 
 async function getLight(): Promise<void> {
   DialogStore.progress.set(true);

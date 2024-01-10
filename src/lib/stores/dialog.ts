@@ -16,7 +16,7 @@ interface ConrimInterface {
   callback: Function
 }
 
-class DialogStore {
+class DialogStoreClass {
   public toast: Writable<ToastInterface>;
   public confirmStore: Writable<ConrimInterface>;
   public progress: Writable<boolean>;
@@ -87,4 +87,8 @@ class DialogStore {
 
 }
 
-export default new DialogStore();
+const DialogStore = new DialogStoreClass();
+
+export {
+  DialogStore,
+};

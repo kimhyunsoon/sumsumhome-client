@@ -1,14 +1,14 @@
 import { writable, type Writable } from 'svelte/store';
 import socket from '$lib/socket';
 import { browser } from '$app/environment';
-import DialogStore from '$lib/stores/dialog';
+import { DialogStore } from '$lib/stores/dialog';
 
 interface UserInfoInterface {
   id: string
   name: string
 }
 
-class UserStore {
+class UserStoreClass {
   public userInfo: Writable<UserInfoInterface | null>; 
   
   constructor() {
@@ -69,4 +69,9 @@ class UserStore {
   }
 }
 
-export default new UserStore();
+const UserStore = new UserStoreClass;
+
+export {
+  type UserInfoInterface,
+  UserStore,
+};

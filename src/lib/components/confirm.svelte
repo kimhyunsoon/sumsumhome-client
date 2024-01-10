@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Dialog, DialogButton } from 'konsta/svelte';
-  import DialogStore from '$lib/stores/dialog';
+  import { DialogStore } from '$lib/stores/dialog';
   const { confirmStore } = DialogStore;
 </script>
 <style lang="scss">

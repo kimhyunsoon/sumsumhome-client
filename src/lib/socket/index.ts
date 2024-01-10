@@ -1,7 +1,10 @@
 import { io, Socket } from 'socket.io-client';
 import config from '../../config/config';
-import DialogStore from '$lib/stores/dialog';
-import UserStore from '$lib/stores/user';
+import { DialogStore } from '$lib/stores/dialog';
+import { UserStore } from '$lib/stores/user';
+import { CommStore } from '$lib/stores/comm';
+import { get } from 'svelte/store';
+
 
 class SocketClient {
   private socket: Socket;
@@ -17,6 +20,10 @@ class SocketClient {
     this.socket.on('connect', async () => {
       console.info('Connected to Socket Server');
       await UserStore.authorization();
+      const { userInfo } = UserStore;
+      CommStore.routeChecker({
+        route: { id: '/' },
+      }, get(userInfo));
     });
 
     this.socket.on('disconnect', () => {
